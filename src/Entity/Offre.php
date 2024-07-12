@@ -31,6 +31,9 @@ class Offre
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'offres')]
     private Collection $tags;
 
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    private ?Service $services = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -97,6 +100,18 @@ class Offre
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getServices(): ?Service
+    {
+        return $this->services;
+    }
+
+    public function setServices(?Service $services): static
+    {
+        $this->services = $services;
 
         return $this;
     }

@@ -27,7 +27,7 @@ class Service
     /**
      * @var Collection<int, Offre>
      */
-    #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'service')]
+    #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'services')]
     private Collection $offres;
 
     public function __construct()
@@ -88,7 +88,7 @@ class Service
     {
         if (!$this->offres->contains($offre)) {
             $this->offres->add($offre);
-            $offre->setService($this);
+            $offre->setServices($this);
         }
 
         return $this;
@@ -98,8 +98,8 @@ class Service
     {
         if ($this->offres->removeElement($offre)) {
             // set the owning side to null (unless already changed)
-            if ($offre->getService() === $this) {
-                $offre->setService(null);
+            if ($offre->getServices() === $this) {
+                $offre->setServices(null);
             }
         }
 
